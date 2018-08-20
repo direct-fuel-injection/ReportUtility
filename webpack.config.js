@@ -1,19 +1,15 @@
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-
-var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-    template: __dirname + '/demo/index.html',
-    inject: false,
-    filename: 'index.html'
-})
+var path = require('path');
 
 module.exports = {
     mode: 'development',
-    context: __dirname + '/src',
-    entry: './index.js',
+    entry: {
+        init: './examples/init/src/index'
+    },
 
     output: {
-        filename: 'bundle.js',
-        path: __dirname + '/dist',
+        path: path.resolve(__dirname, './examples'),
+        publicPath: '/examples/',
+        filename: '[name]/bundle.js'
     },
 
     module: {
@@ -41,7 +37,5 @@ module.exports = {
                 ]
             }
         ]
-    },
-
-    plugins: [HTMLWebpackPluginConfig]
+    }
 }

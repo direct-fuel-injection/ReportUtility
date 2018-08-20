@@ -1,5 +1,3 @@
 export default from './components/Form'
 
-import { init } from './utils'
-
-init(document.getElementById('container'))
+export { init } from './utils'
