@@ -40,11 +40,16 @@
     color: rgb(136, 145, 137);
     height: 100%;
     left: 0;
-    line-height: 250px;
+    /* line-height: 250px; */
+    padding: 20px;
     position: absolute;
     text-align: center;
     top: 0;
     width: 100%;
+}
+
+.errorContainer {
+    padding: 20px 0;
 }
 
 .titleContainer {

@@ -9,7 +9,9 @@ module.exports = merge(baseConfig, {
     devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, '../dist/without-react'),
-        filename: 'report.utility.min.js'
+        filename: 'report.utility.min.js',
+        library: 'ReportUtility',
+        libraryTarget: 'umd'
     },
 
     externals : {

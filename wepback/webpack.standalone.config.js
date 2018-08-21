@@ -11,7 +11,7 @@ module.exports = merge(baseConfig, {
         path: path.resolve(__dirname, '../dist/standalone'),
         filename: 'report.utility.min.js',
         library: 'ReportUtility',
-        libraryTarget: 'umd',
+        libraryTarget: 'umd'
     },
 
     plugins: [

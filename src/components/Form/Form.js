@@ -16,6 +16,7 @@ export default class Form extends React.Component {
         nameLabel: 'Ваше Имя',
         messageLabel: 'Оставьте сообщение',
         sendMessage: 'Отправить',
+        reSendMessage: 'Отправить еще раз',
         loadingMessage: 'Отправляем, ждите...',
         errorMessage: 'Упс, что-то пошло не так...'
     }
@@ -31,7 +32,9 @@ export default class Form extends React.Component {
         /** if true window will be in compact mode */
         minimized: PropTypes.bool,
         /** url to report bug */
-        url: PropTypes.string
+        url: PropTypes.string,
+        /** hook for rewrite onSend behavior */
+        onSend: PropTypes.func
     }
 
     state = {
@@ -69,7 +72,7 @@ export default class Form extends React.Component {
 
         const name = this.nameInput.current.value
         const message = this.messageTextarea.current.value
-        
+
         if (typeof onSend === 'function') return onSend({ name, message })
 
         // show loader
@@ -77,10 +80,11 @@ export default class Form extends React.Component {
 
         // sending message to the server
         send(url, { name, message }).then((response) => {
-            if (response.ok) {
-                this.setState({ isSending: false })
+            if (response.status === 200) {
+                this.clearForm()
+                this.setState()
             } else {
-                throw Error;
+                throw new Error(response.statusText);
             }
         }).catch(() => {
             this.setState({
@@ -90,12 +94,16 @@ export default class Form extends React.Component {
         })
     }
 
+    clearForm = () => {
+        this.nameInput.current.value = ''
+        this.messageTextarea.current.value = ''
+    }
     render () {
         const { isSending, isError, minimized } = this.state
-        const { title, nameLabel, messageLabel, sendMessage, loadingMessage, errorMessage } = this.props
+        const { title, nameLabel, messageLabel, sendMessage, reSendMessage, loadingMessage, errorMessage, className } = this.props
 
         return (
-            <div className={cx(st.container, { [st.minimized]: minimized })}>
+            <div className={cx(st.container, className, { [st.minimized]: minimized })}>
                 <div className={st.titleContainer} onClick={minimized ? this.onToggle : undefined}>
                     {title}
                     <div className={st.closeButton} onClick={minimized ? undefined : this.onToggle}></div>
@@ -112,8 +120,8 @@ export default class Form extends React.Component {
                     </div>
                     {isSending && <div className={st.loading}>{loadingMessage}</div>}
                     {isError && <div className={st.loading}>
-                            {errorMessage}
-                            <button className={st.sendButton} onClick={this.onSend}>{sendMessage}</button>
+                            <div className={st.errorContainer}>{errorMessage}</div>
+                            <button className={st.sendButton} onClick={this.onSend}>{reSendMessage}</button>
                         </div>
                     }
                 </div>

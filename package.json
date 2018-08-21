@@ -2,15 +2,23 @@
   "name": "reportutility",
   "version": "1.0.0",
   "description": "library for report bugs on your service",
-  "main": "index.js",
+  "main": "dist/without-react/report.utility.min.js",
   "scripts": {
     "test": "jest --config ./test/jest/config.js",
     "start": "webpack-dev-server --config wepback/webpack.dev.config.js",
     "examples": "webpack -p --config wepback/webpack.dev.config.js",
-    "build": "webpack --config wepback/webpack.prod.config.js && webpack --config wepback/webpack.standalone.config.js"
+    "build": "webpack --config wepback/webpack.prod.config.js && webpack --config wepback/webpack.standalone.config.js",
+    "prepublish": "npm run test && npm run build"
   },
   "author": "dfi",
   "license": "MIT",
+  "engines": {
+    "node": ">=7.8.0"
+  },
+  "peerDependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.6",
