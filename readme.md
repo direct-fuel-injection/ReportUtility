@@ -22,11 +22,11 @@ $ cp ./dist/standalone/report.utility.min.js $dest
 ```
 ### Usage
 
-As React Component, see examples(React Example):
+As React Component, see examples([React](https://direct-fuel-injection.github.io/ReportUtility/examples/react/)):
 ```js
 <ReportUtility url="http://localhost:3000" minimized={false} />
 ```
-As standalone library, see examples(render function):
+As standalone library, see examples([`render` function](https://direct-fuel-injection.github.io/ReportUtility/examples/render/)):
 ```js
 ReportUtility.render(document.getElementById('container'), {
 	url: 'http://localhost:3000/',
