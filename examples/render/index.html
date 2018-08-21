@@ -8,7 +8,12 @@
 <body>
     <div id="container"></div>
     <script src="../../dist/standalone/report.utility.min.js"></script>
-    <script>ReportUtility.render(document.getElementById('container'));</script>
+    <script>
+        ReportUtility.render(document.getElementById('container'), {
+            url: 'http://localhost:3000/',
+            minimized: false
+        });
+    </script>
 </body>
 
 </html>

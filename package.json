@@ -4,7 +4,7 @@
   "description": "library for report bugs on your service",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --config ./test/jest/config.js",
     "start": "webpack-dev-server --config wepback/webpack.dev.config.js",
     "examples": "webpack -p --config wepback/webpack.dev.config.js",
     "build": "webpack --config wepback/webpack.prod.config.js && webpack --config wepback/webpack.standalone.config.js"
@@ -13,13 +13,22 @@
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "classnames": "^2.2.6",
     "css-loader": "^1.0.0",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0",
     "eslint": "^5.4.0",
+    "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.5.0",
+    "jest-css-modules": "^1.1.0",
     "prop-types": "^15.6.2",
+    "react-test-renderer": "^16.4.2",
     "style-loader": "^0.22.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
@@ -27,7 +36,6 @@
     "webpack-merge": "^4.1.4"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
   }

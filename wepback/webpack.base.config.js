@@ -1,4 +1,5 @@
 var path = require('path');
+var babelOptions = require('./babel.config.json');
 
 module.exports = {
     module: {
@@ -7,10 +8,8 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
-                    options: {
-                        presets: ['env', 'react', 'stage-0']
-                    }
-                },
+                    options: babelOptions
+                }
             },
             {
                 test: /\.css$/,

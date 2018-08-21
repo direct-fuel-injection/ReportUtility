@@ -5,7 +5,10 @@ import ReportUtility from '../../../src'
 export default class App extends React.Component {
     render () {
         return (
-            <ReportUtility />
+            <ReportUtility
+                url="http://localhost:3000"
+                minimized={false}
+            />
         )
     }
 }

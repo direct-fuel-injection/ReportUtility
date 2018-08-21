@@ -1,15 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
 import { send } from '../../utils'
 
-import { container, titleContainer, wrapper, loading, authorContainer, messageContainer, actionsContainer, sendButton, closeButton } from './styles.css'
+import st from './styles.css'
 
 /**
  * A form displays window with bug reporting functionality
  */
 export default class Form extends React.Component {
     static defaultProps = {
+        minimized: true,
         title: 'Напишите нам об ошибке!',
         nameLabel: 'Ваше Имя',
         messageLabel: 'Оставьте сообщение',
@@ -26,11 +28,10 @@ export default class Form extends React.Component {
         loadingMessage: PropTypes.string,
         errorMessage: PropTypes.string,
 
+        /** if true window will be in compact mode */
+        minimized: PropTypes.bool,
         /** url to report bug */
-        url: PropTypes.string,
-
-        /** */
-        onSend: PropTypes.func
+        url: PropTypes.string
     }
 
     state = {
@@ -41,11 +42,26 @@ export default class Form extends React.Component {
     constructor(props) {
         super(props)
 
+        // overwrite state with specified props, skips undefined
+        this.state = Object.assign(
+            {},
+            this.state,
+            ['minimized'].reduce((props, name) => {
+                typeof this.props[name] !== 'undefined' && (props[name] = this.props[name])
+                return props
+            }, {})
+        )
+
         // creating refs for input elements
         this.nameInput = React.createRef()
         this.messageTextarea = React.createRef()
     }
 
+    onToggle = () => {
+        this.setState({
+            minimized: this.state.minimized ? false : true
+        })
+    }
     onSend = () => {
         const { onSend, url } = this.props
 
@@ -61,9 +77,11 @@ export default class Form extends React.Component {
 
         // sending message to the server
         send(url, { name, message }).then((response) => {
-            console.log(response);
-            
-            this.setState({ isSending: false })
+            if (response.ok) {
+                this.setState({ isSending: false })
+            } else {
+                throw Error;
+            }
         }).catch(() => {
             this.setState({
                 isSending: false,
@@ -73,28 +91,31 @@ export default class Form extends React.Component {
     }
 
     render () {
-        const { isSending, isError } = this.state
-
+        const { isSending, isError, minimized } = this.state
         const { title, nameLabel, messageLabel, sendMessage, loadingMessage, errorMessage } = this.props
 
         return (
-            <div className={container}>
-                <div className={titleContainer}>
+            <div className={cx(st.container, { [st.minimized]: minimized })}>
+                <div className={st.titleContainer} onClick={minimized ? this.onToggle : undefined}>
                     {title}
-                    <div className={closeButton}></div>
+                    <div className={st.closeButton} onClick={minimized ? undefined : this.onToggle}></div>
                 </div>
-                <div className={wrapper}>
-                    <div className={authorContainer}>
+                <div className={st.wrapper}>
+                    <div className={st.authorContainer}>
                         <input type="text" placeholder={nameLabel} ref={this.nameInput}/>
                     </div>
-                    <div className={messageContainer}>
+                    <div className={st.messageContainer}>
                         <textarea type="text" placeholder={messageLabel} ref={this.messageTextarea}></textarea>
                     </div>
-                    <div className={actionsContainer}>
-                        <button className={sendButton} onClick={this.onSend}>{sendMessage}</button>
+                    <div className={st.actionsContainer}>
+                        <button className={st.sendButton} onClick={this.onSend}>{sendMessage}</button>
                     </div>
-                    {isSending && <div className={loading}>{loadingMessage}</div>}
-                    {isError && <div className={loading}>{errorMessage}</div>}
+                    {isSending && <div className={st.loading}>{loadingMessage}</div>}
+                    {isError && <div className={st.loading}>
+                            {errorMessage}
+                            <button className={st.sendButton} onClick={this.onSend}>{sendMessage}</button>
+                        </div>
+                    }
                 </div>
             </div>
         )
