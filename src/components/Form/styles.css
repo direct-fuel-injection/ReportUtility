@@ -1,19 +1,16 @@
 .container * {
-    box-sizing : border-box;
+    box-sizing: border-box;
 }
 
 .container {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: absolute;
     bottom: 0;
     right: 20px;
+    min-width: 280px;
     display: inline-block;
-
-    min-width: 250px;
     margin: 0;
     padding: 0;
-
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
 }
 
@@ -44,28 +41,28 @@
     padding: 0;
 }
 
-.authorContainer > input {
+.authorContainer>input {
     margin: 0;
     width: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 20px;
     border: none;
     border-bottom: 1px solid transparent;
 }
 
-.authorContainer > input:focus {
+.authorContainer>input:focus {
     outline: 0;
-    border-bottom: 1px solid rgba(0, 110, 255, 0.5);
+    /* border-bottom: 1px solid rgba(0, 110, 255, 0.5); */
 }
 
 .messageContainer {
     padding: 0;
 }
 
-.messageContainer > textarea {
+.messageContainer>textarea {
     width: 100%;
     padding: 5px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     min-height: 100px;
     background-color: rgba(245, 249, 251, 1);
     border: none;
@@ -74,9 +71,9 @@
     padding: 20px;
 }
 
-.messageContainer > textarea:focus {
+.messageContainer>textarea:focus {
     outline: 0;
-    border-bottom: 1px solid rgba(0, 110, 255, 0.5);
+    /* border-bottom: 1px solid rgba(0, 110, 255, 0.5); */
 }
 
 .actionsContainer {
@@ -84,12 +81,33 @@
 }
 
 .sendButton {
+    letter-spacing: 1px;
+    background-color: rgba(0, 146, 235, 1);
     border: none;
     color: #fff;
-    background-color: rgba(0, 146, 235, 1);
+    cursor: pointer;
+    padding: 12px 35px 10px;
+    text-transform: uppercase;
     width: 100%;
-    padding: 10px;
 }
+
 .sendButton:focus {
     outline: 0;
+}
+
+.closeButton {
+    color: #fff;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: lighter;
+    position: absolute;
+    right: 8px;
+    text-decoration: none;
+    top: 8px;
+}
+
+.closeButton:after {
+    content: '✖';
+    /* UTF-8 symbol */
 }

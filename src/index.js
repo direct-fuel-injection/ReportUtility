@@ -1,3 +1,3 @@
 export default from './components/Form'
 
-export { init } from './utils'
+export { render } from './utils'

@@ -1,49 +1,100 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { send } from '../../utils'
 
-import { container, titleContainer, wrapper, loading, authorContainer, messageContainer, actionsContainer, sendButton } from './styles.css'
+import { container, titleContainer, wrapper, loading, authorContainer, messageContainer, actionsContainer, sendButton, closeButton } from './styles.css'
 
+/**
+ * A form displays window with bug reporting functionality
+ */
 export default class Form extends React.Component {
+    static defaultProps = {
+        title: 'Напишите нам об ошибке!',
+        nameLabel: 'Ваше Имя',
+        messageLabel: 'Оставьте сообщение',
+        sendMessage: 'Отправить',
+        loadingMessage: 'Отправляем, ждите...',
+        errorMessage: 'Упс, что-то пошло не так...'
+    }
+
+    static propTypes = {
+        title: PropTypes.string,
+        nameLabel: PropTypes.string,
+        messageLabel: PropTypes.string,
+        sendMessage: PropTypes.string,
+        loadingMessage: PropTypes.string,
+        errorMessage: PropTypes.string,
+
+        /** url to report bug */
+        url: PropTypes.string,
+
+        /** */
+        onSend: PropTypes.func
+    }
+
     state = {
-        isSending: false
+        isSending: false,
+        isError: false
     }
 
     constructor(props) {
         super(props)
 
-        // creatinf refs for input elements
+        // creating refs for input elements
         this.nameInput = React.createRef()
         this.messageTextarea = React.createRef()
     }
 
     onSend = () => {
+        const { onSend, url } = this.props
+
+        if (!url) return
+
         const name = this.nameInput.current.value
         const message = this.messageTextarea.current.value
+        
+        if (typeof onSend === 'function') return onSend({ name, message })
 
+        // show loader
         this.setState({ isSending: true })
-        send({ name, message }).then(() => {
-            // this.setState({ isSending: false })
+
+        // sending message to the server
+        send(url, { name, message }).then((response) => {
+            console.log(response);
+            
+            this.setState({ isSending: false })
+        }).catch(() => {
+            this.setState({
+                isSending: false,
+                isError: true
+            })
         })
     }
 
     render () {
-        const { isSending } = this.state
+        const { isSending, isError } = this.state
+
+        const { title, nameLabel, messageLabel, sendMessage, loadingMessage, errorMessage } = this.props
 
         return (
             <div className={container}>
-                <div className={titleContainer}>Напишите нам об ошибке!</div>
+                <div className={titleContainer}>
+                    {title}
+                    <div className={closeButton}></div>
+                </div>
                 <div className={wrapper}>
                     <div className={authorContainer}>
-                        <input type="text" placeholder="Ваше Имя" ref={this.nameInput}/>
+                        <input type="text" placeholder={nameLabel} ref={this.nameInput}/>
                     </div>
                     <div className={messageContainer}>
-                        <textarea type="text" placeholder="Оставьте сообщение" ref={this.messageTextarea}></textarea>
+                        <textarea type="text" placeholder={messageLabel} ref={this.messageTextarea}></textarea>
                     </div>
                     <div className={actionsContainer}>
-                        <button className={sendButton} onClick={this.onSend}>Отправить</button>
+                        <button className={sendButton} onClick={this.onSend}>{sendMessage}</button>
                     </div>
-                    {isSending && <div className={loading}>Отправляем, ждите...</div>}
+                    {isSending && <div className={loading}>{loadingMessage}</div>}
+                    {isError && <div className={loading}>{errorMessage}</div>}
                 </div>
             </div>
         )

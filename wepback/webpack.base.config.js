@@ -1,17 +1,6 @@
 var path = require('path');
 
 module.exports = {
-    mode: 'development',
-    entry: {
-        init: './examples/init/src/index'
-    },
-
-    output: {
-        path: path.resolve(__dirname, './examples'),
-        publicPath: '/examples/',
-        filename: '[name]/bundle.js'
-    },
-
     module: {
         rules: [{
                 test: /\.js$/,
@@ -26,12 +15,12 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    { loader: "style-loader" },
+                    { loader: 'style-loader' },
                     {
                         loader: 'css-loader',
                         options: {
                             modules: true,
-                            localIdentName: '[hash:base64:8]'
+                            localIdentName: '[hash:base64:12]'
                         }
                     }
                 ]

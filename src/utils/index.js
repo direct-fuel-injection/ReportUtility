@@ -1,10 +1,10 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDom from 'react-dom'
 
 import Form from '../components/Form'
 
-export const init = (el, props) => {
-    render(<Form {...props} />, el)
+export const render = (el, props) => {
+    ReactDom.render(<Form {...props} />, el)
 }
 
 export const send = (options={}) => {
