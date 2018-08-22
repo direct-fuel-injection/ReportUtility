@@ -8,17 +8,12 @@ module.exports = merge(baseConfig, {
     entry: './src/index',
     devtool: 'source-map',
     output: {
-        path: path.resolve(__dirname, '../dist/without-react'),
+        path: path.resolve(__dirname, '../dist'),
         filename: 'report.utility.min.js',
         library: 'ReportUtility',
         libraryTarget: 'umd'
     },
 
-    externals : {
-        react: 'React',
-        'react-dom': 'ReactDOM'
-    },
-    
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {

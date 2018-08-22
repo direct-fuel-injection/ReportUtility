@@ -18,11 +18,19 @@ module.exports = {
                     {
                         loader: 'css-loader',
                         options: {
-                            modules: true,
-                            localIdentName: '[hash:base64:12]'
+                            // modules: true
                         }
                     }
                 ]
+            },
+            {
+                test: /\.html$/,
+                use: [{
+                    loader: 'html-loader',
+                    options: {
+                        minimize: true
+                    }
+                }]
             }
         ]
     }

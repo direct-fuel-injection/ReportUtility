@@ -4,5 +4,8 @@ module.exports = {
     transform: {
         '^.+\\.js$': './jest/transformer.js',
         '\\.css$': '../node_modules/jest-css-modules'
+    },
+    moduleNameMapper:{
+        "\\.css$": "identity-obj-proxy"
     }
 };

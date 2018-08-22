@@ -7,7 +7,6 @@
                 "modules": "commonjs"
             }
         ],
-        "react",
         "stage-0"
     ]
 }

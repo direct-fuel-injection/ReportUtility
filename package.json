@@ -1,23 +1,19 @@
 {
   "name": "reportutility",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "library for report bugs on your service",
-  "main": "dist/without-react/report.utility.min.js",
+  "main": "dist/report.utility.min.js",
   "scripts": {
     "test": "jest --config ./test/jest/config.js",
     "start": "webpack-dev-server --config wepback/webpack.dev.config.js",
     "examples": "webpack -p --config wepback/webpack.dev.config.js",
-    "build": "webpack --config wepback/webpack.prod.config.js && webpack --config wepback/webpack.standalone.config.js",
+    "build": "webpack --config wepback/webpack.prod.config.js",
     "prepublish": "npm run test && npm run build"
   },
   "author": "dfi",
   "license": "MIT",
   "engines": {
     "node": ">=7.8.0"
-  },
-  "peerDependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -33,18 +29,18 @@
     "enzyme-adapter-react-16": "^1.2.0",
     "eslint": "^5.4.0",
     "eslint-plugin-react": "^7.11.1",
+    "html-loader": "^0.5.5",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^23.5.0",
     "jest-css-modules": "^1.1.0",
     "prop-types": "^15.6.2",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-test-renderer": "^16.4.2",
     "style-loader": "^0.22.1",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5",
     "webpack-merge": "^4.1.4"
-  },
-  "dependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2"
   }
 }

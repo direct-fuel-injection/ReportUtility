@@ -5,6 +5,7 @@
 .container {
     bottom: 0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    cursor: pointer;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     min-width: 280px;
@@ -17,9 +18,6 @@
 .container.minimized .wrapper {
     max-height: 0;
     opacity: 1;
-}
-.container.minimized .header {
-    cursor: pointer;
 }
 .container.minimized .dismiss {
     display: none;

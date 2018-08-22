@@ -2,17 +2,19 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Report Utility Example of Standalone `render` Function</title>
+    <title>Report Utility Simple Example</title>
 </head>
 
 <body>
     <div id="container"></div>
-    <script src="../../dist/standalone/report.utility.min.js"></script>
+    <script src="/bundle.js"></script>
     <script>
-        ReportUtility.render(document.getElementById('container'), {
+        ReportUtility.config({
+            el: '#container',
             url: 'http://localhost:3000/',
             minimized: false
         });
+        ReportUtility.init();
     </script>
 </body>
 
