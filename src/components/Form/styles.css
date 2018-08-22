@@ -5,7 +5,6 @@
 .container {
     bottom: 0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
-    display: inline-block;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
     min-width: 280px;
@@ -14,17 +13,16 @@
     right: 20px;
 }
 
-.container.minimized .closeButton {
-    display: none;
-}
 
-.container.minimized>.wrapper {
+.container.minimized .wrapper {
     max-height: 0;
     opacity: 1;
 }
-
-.container.minimized .titleContainer {
+.container.minimized .header {
     cursor: pointer;
+}
+.container.minimized .dismiss {
+    display: none;
 }
 
 .wrapper {
@@ -35,12 +33,11 @@
     transition: all .2s ease-in-out;
 }
 
-.loading {
+.cover {
     background-color: rgb(245, 249, 251);
     color: rgb(136, 145, 137);
     height: 100%;
     left: 0;
-    /* line-height: 250px; */
     padding: 20px;
     position: absolute;
     text-align: center;
@@ -48,73 +45,18 @@
     width: 100%;
 }
 
-.errorContainer {
-    padding: 20px 0;
+.block {
+    padding: 0;
+    margin: 0;
 }
 
-.titleContainer {
+.block.header {
     background-color: rgb(0, 146, 235);
     color: #fff;
-    margin: 0;
     padding: 15px 20px;
 }
 
-.authorContainer {
-    padding: 0;
-}
-
-.authorContainer>input {
-    border: none;
-    border-bottom: 1px solid transparent;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin: 0;
-    padding: 20px;
-    width: 100%;
-}
-
-.authorContainer>input:focus {
-    outline: 0;
-}
-
-.messageContainer {
-    padding: 0;
-}
-
-.messageContainer>textarea {
-    background-color: rgba(245, 249, 251, 1);
-    border: none;
-    border-bottom: 1px solid transparent;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    min-height: 100px;
-    padding: 20px;
-    resize: none;
-    width: 100%;
-}
-
-.messageContainer>textarea:focus {
-    outline: 0;
-}
-
-.actionsContainer {
-    padding: 20px;
-}
-
-.sendButton {
-    background-color: rgba(0, 146, 235, 1);
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    letter-spacing: 1px;
-    padding: 12px 35px 10px;
-    text-transform: uppercase;
-    width: 100%;
-}
-
-.sendButton:focus {
-    outline: 0;
-}
-
-.closeButton {
+.block.header .dismiss {
     color: #fff;
     cursor: pointer;
     font-family: Arial, sans-serif;
@@ -126,7 +68,42 @@
     top: 8px;
 }
 
-.closeButton:after {
+.block.header .dismiss:after {
     /* UTF-8 symbol */
     content: '✖';
+}
+
+.field {
+    border: none;
+    border-bottom: 1px solid transparent;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 20px;
+    width: 100%;
+}
+
+.button:focus,
+.field:focus {
+    outline: 0;
+}
+
+.button {
+    background-color: rgba(0, 146, 235, 1);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    letter-spacing: 1px;
+    padding: 12px 35px 10px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.block.message .field {
+    background-color: rgba(245, 249, 251, 1);
+    min-height: 100px;
+    resize: none;
+}
+
+.block.actions {
+    padding: 20px;
 }

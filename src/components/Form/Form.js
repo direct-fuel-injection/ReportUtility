@@ -104,24 +104,24 @@ export default class Form extends React.Component {
 
         return (
             <div className={cx(st.container, className, { [st.minimized]: minimized })}>
-                <div className={st.titleContainer} onClick={minimized ? this.onToggle : undefined}>
+                <div className={cx(st.block, st.header)} onClick={minimized ? this.onToggle : undefined}>
                     {title}
-                    <div className={st.closeButton} onClick={minimized ? undefined : this.onToggle}></div>
+                    <div className={st.dismiss} onClick={minimized ? undefined : this.onToggle}></div>
                 </div>
                 <div className={st.wrapper}>
-                    <div className={st.authorContainer}>
-                        <input type="text" placeholder={nameLabel} ref={this.nameInput}/>
+                    <div className={cx(st.block, st.author)}>
+                        <input className={st.field} type="text" placeholder={nameLabel} ref={this.nameInput}/>
                     </div>
-                    <div className={st.messageContainer}>
-                        <textarea type="text" placeholder={messageLabel} ref={this.messageTextarea}></textarea>
+                    <div className={cx(st.block, st.message)}>
+                        <textarea className={st.field} type="text" placeholder={messageLabel} ref={this.messageTextarea}></textarea>
                     </div>
-                    <div className={st.actionsContainer}>
-                        <button className={st.sendButton} onClick={this.onSend}>{sendMessage}</button>
+                    <div className={cx(st.block, st.actions)}>
+                        <button className={st.button} onClick={this.onSend}>{sendMessage}</button>
                     </div>
-                    {isSending && <div className={st.loading}>{loadingMessage}</div>}
-                    {isError && <div className={st.loading}>
-                            <div className={st.errorContainer}>{errorMessage}</div>
-                            <button className={st.sendButton} onClick={this.onSend}>{reSendMessage}</button>
+                    {isSending && <div className={st.cover}>{loadingMessage}</div>}
+                    {isError && <div className={st.cover}>
+                            <div className={st.field}>{errorMessage}</div>
+                            <button className={st.button} onClick={this.onSend}>{reSendMessage}</button>
                         </div>
                     }
                 </div>
