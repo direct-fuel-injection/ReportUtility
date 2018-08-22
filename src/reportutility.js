@@ -4,25 +4,42 @@ import send from './utils/send'
 import * as styles from './css/styles.css'
 
 class ReportUtility {
-    constructor(el, options) {
+    constructor() {
         this.state = defaults
+        
+        this.onSend = this.onSend.bind(this)
+        this.onChangeAuthor = this.onChangeAuthor.bind(this)
+        this.onChangeMessage = this.onChangeMessage.bind(this)
+        this.toggle = this.toggle.bind(this)
     }
 
     init() {
         this.el = document.querySelector(this.state.el)
-        if (!this.el) throw TypeError("`el` must be specified")
+        if (!this.el) throw TypeError("`el` must be specified through `config` method")
 
         this.render()
         this.bindEvents()
+
+        return this
+    }
+    destroy() {
+        this.unbindEvents()
+        this.el.innerHTML = ''
     }
     config(options) {
         this.state = Object.assign({}, defaults, options)
     }
     bindEvents() {
-        this.el.querySelector('.block.actions .button').addEventListener('click', this.onSend.bind(this), false)
-        this.el.querySelector('.block.author .field').addEventListener('change', this.onChangeAuthor.bind(this), false)
-        this.el.querySelector('.block.message .field').addEventListener('change', this.onChangeMessage.bind(this), false)
-        this.el.querySelector('.block.header').addEventListener('click', this.toggle.bind(this), false)
+        this.el.querySelector('.rp-container__actions .rp-container__button').addEventListener('click', this.onSend, false)
+        this.el.querySelector('.rp-container__author .rp-container__field').addEventListener('change', this.onChangeAuthor, false)
+        this.el.querySelector('.rp-container__message .rp-container__field').addEventListener('change', this.onChangeMessage, false)
+        this.el.querySelector('.rp-container__header').addEventListener('click', this.toggle, false)
+    }
+    unbindEvents() {
+        this.el.querySelector('.rp-container__actions .rp-container__button').removeEventListener('click', this.onSend, false)
+        this.el.querySelector('.rp-container__author .rp-container__field').removeEventListener('change', this.onChangeAuthor, false)
+        this.el.querySelector('.rp-container__message .rp-container__field').removeEventListener('change', this.onChangeMessage, false)
+        this.el.querySelector('.rp-container__header').removeEventListener('click', this.toggle, false)
     }
     setState(newState) {
         this.state = Object.assign({}, this.state, newState)
@@ -32,9 +49,9 @@ class ReportUtility {
         this.state.minimized = this.state.minimized ? false : true
 
         if (this.state.minimized) {
-            this.el.querySelector('.container').classList.add('minimized')
+            this.el.querySelector('.rp-container').classList.add('rp-container_minimized')
         } else {
-            this.el.querySelector('.container').classList.remove('minimized')
+            this.el.querySelector('.rp-container').classList.remove('rp-container_minimized')
         }
     }
 
@@ -69,7 +86,7 @@ class ReportUtility {
         })
     }
     onError() {
-        this.el.querySelector('.cover.error').style.display = 'block'
+        this.el.querySelector('.rp-container__cover_error').style.display = 'block'
     }
 
     render() {
@@ -77,16 +94,14 @@ class ReportUtility {
         this.el.insertAdjacentHTML('afterbegin', this.state.template)
 
         if (this.state.minimized)
-            this.el.querySelector('.container').classList.add('minimized')
-        if (!this.state.isSending)
-            this.el.querySelector('.cover.loading').style.display = 'none'
-        if (!this.state.isError)
-            this.el.querySelector('.cover.error').style.display = 'none'
+            this.el.querySelector('.rp-container').classList.add('minimized')
     }
 }
 
 const reportUtility = new ReportUtility()
+
 const init = reportUtility.init.bind(reportUtility)
 const config = reportUtility.config.bind(reportUtility)
+const destroy = reportUtility.destroy.bind(reportUtility)
 
-export { init, config, send }
+export { init, config, send, destroy }

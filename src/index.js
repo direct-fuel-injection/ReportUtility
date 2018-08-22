@@ -1,1 +1,1 @@
-export { init, config, send } from './reportutility'
+export { init, destroy, config, send } from './reportutility'
