@@ -1,13 +1,8 @@
 # Report Utility
 
-Form to collect report messages from your sites. Now your users can easly send you reports and bugs.
-Use it as:
-  - React Component;
-  - standalone library.
+A Form to collect report messages from your sites. Now your users can easly send you reports and bugs.
 
 ### Installation
-
-ReportUtility requires React v16 to run.
 
 Install as npm package.
 
@@ -20,18 +15,16 @@ Install as standalone library.
 ```sh
 $ cp ./dist/standalone/report.utility.min.js $dest
 ```
+
 ### Usage
 
-As React Component, see examples([React](https://direct-fuel-injection.github.io/ReportUtility/examples/react/)):
-```js
-<ReportUtility url="http://localhost:3000" minimized={false} />
-```
 As standalone library, see examples([`render` function](https://direct-fuel-injection.github.io/ReportUtility/examples/render/)):
 ```js
-ReportUtility.render(document.getElementById('container'), {
-	url: 'http://localhost:3000/',
-	minimized: false
+ReportUtility.config({
+    el: '#container',
+    minimized: false
 });
+ReportUtility.init();
 ```
 ### Development
 
@@ -51,10 +44,6 @@ $ npm test
 For production release:
 ```sh
 $ npm run build
-```
-Generating examples:
-```sh
-$ npm run examples
 ```
 
 ### Todos
