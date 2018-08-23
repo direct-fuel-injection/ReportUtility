@@ -1,13 +1,11 @@
 import defaults from './defaults'
 import send from './utils/send'
 
-import * as styles from './css/styles.css'
+import './css/styles.css'
 
 /** Class representing report form */
 class ReportUtility {
     constructor() {
-        this.state = defaults
-        
         this.onSend = this.onSend.bind(this)
         this.onSendError = this.onSendError.bind(this)
         this.onSendSuccess = this.onSendSuccess.bind(this)
@@ -29,7 +27,7 @@ class ReportUtility {
 
         return this
     }
-    
+
     /**
      * Clear destroy form
      */
@@ -53,33 +51,35 @@ class ReportUtility {
         {
             el: '.rp-container__actions .rp-container__button',
             evt: 'click',
-            cb: 'onSend'
+            cb: 'onSend',
         },
         {
             el: '.rp-container__author .rp-container__field',
             evt: 'change',
-            cb: 'onChangeAuthor'
+            cb: 'onChangeAuthor',
         },
         {
             el: '.rp-container__message .rp-container__field',
             evt: 'change',
-            cb: 'onChangeMessage'
+            cb: 'onChangeMessage',
         },
         {
             el: '.rp-container__header',
             evt: 'click',
-            cb: 'onToggle'
-        }
+            cb: 'onToggle',
+        },
     ]
+
     bindEvents() {
         this.events.forEach(({ el, evt, cb }) => {
-            let domEl = this.el.querySelector(el)
+            const domEl = this.el.querySelector(el)
             if (domEl) domEl.addEventListener(evt, this[cb], false)
         })
     }
+
     unbindEvents() {
         this.events.forEach(({ el, evt, cb }) => {
-            let domEl = this.el.querySelector(el)
+            const domEl = this.el.querySelector(el)
             if (domEl) domEl.removeEventListener(evt, this[cb], false)
         })
     }
@@ -96,53 +96,58 @@ class ReportUtility {
 
     onToggle() {
         this.setState({
-            minimized: !this.state.minimized
+            minimized: !this.state.minimized,
         })
     }
+
     onChangeAuthor(e) {
         this.setState({
-            name: e.currentTarget.value
+            name: e.currentTarget.value,
         })
     }
+
     onChangeMessage(e) {
         this.setState({
-            message: e.currentTarget.value
+            message: e.currentTarget.value,
         })
     }
-    
+
     /**
-     * Handles send button click, 
+     * Handles send button click
      */
     onSend() {
         const { name, message, url } = this.state
-    
+
         if (!url) return
-    
+
         // show loader
         this.setState({ isSending: true })
-    
+
         // sending message to the server
-        send(url, { name, message }).then(() => {
+        send(url, { name, message }).then((response) => {
             if (response.status === 200) {
                 this.onSendSuccess()
             } else {
-                throw new Error(response.statusText);
+                throw new Error(response.statusText)
             }
         }).catch(this.onSendError)
     }
+
     onSendSuccess() {
         this.setState({
             name: '',
             message: '',
-            isSending: false
+            isSending: false,
         })
     }
+
     onSendError() {
         this.setState({
             isError: true,
-            isSending: false
+            isSending: false,
         })
     }
+
     /**
      * Updates form according to state change
      * @param  {object} previous state object
@@ -155,7 +160,7 @@ class ReportUtility {
         }
         this.el.querySelector('.rp-container__cover_loading').style.display = this.state.isSending ? 'block' : 'none'
         this.el.querySelector('.rp-container__cover_error').style.display = this.state.isError ? 'block' : 'none'
-    
+
         if (prevState.name !== this.state.name) {
             this.el.querySelector('.rp-container__author .rp-container__field').value = this.state.name
         }
@@ -169,7 +174,7 @@ class ReportUtility {
         this.el.insertAdjacentHTML('afterbegin', this.state.template)
 
         const el = this.el.querySelector('.rp-container')
-        if (el && this.state.minimized)  el.classList.add('minimized')
+        if (el && this.state.minimized) el.classList.add('minimized')
     }
 }
 
@@ -179,4 +184,6 @@ const init = reportUtility.init.bind(reportUtility)
 const config = reportUtility.config.bind(reportUtility)
 const destroy = reportUtility.destroy.bind(reportUtility)
 
-export { init, config, send, destroy }
+export {
+    init, config, send, destroy,
+}

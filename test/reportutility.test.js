@@ -1,7 +1,4 @@
-import React from 'react'
-
 import * as rp from '../src/reportutility'
-
 import defaults from '../src/defaults'
 
 let instance
@@ -14,14 +11,14 @@ beforeEach(() => {
     instance = rp.init()
 })
 
-it("library should contain correct api methods", () => {
+it('library should contain correct api methods', () => {
     expect(typeof rp.init).toBe('function')
     expect(typeof rp.send).toBe('function')
     expect(typeof rp.destroy).toBe('function')
     expect(typeof rp.config).toBe('function')
 })
 
-it("check defaults after init", () => {
+it('check defaults after init', () => {
     expect(typeof instance.state).toEqual('object')
     defaults.el = 'body'
     expect(instance.state).toEqual(defaults)
@@ -30,7 +27,7 @@ it("check defaults after init", () => {
 it('check destroy function', () => {
     rp.destroy()
     instance = rp.init()
-    
+
     expect(!!instance.el.querySelector('.rp-container')).toBe(true)
     expect(instance.el.querySelectorAll('.rp-container').length).toBe(1)
 })
@@ -44,7 +41,7 @@ it('setState should correctly merge objects with defaults', () => {
 })
 
 it('check setState should call properly', () => {
-    let update = instance.update
+    const { update } = instance
     instance.update = jest.fn()
     instance.setState({ visible: true })
 
@@ -66,7 +63,7 @@ it('check onSend method calls', () => {
 })
 
 it('checking events works correctly', () => {
-    const minimized = instance.state.minimized
+    const { minimized } = instance.state
 
     instance.unbindEvents()
     instance.onSend = jest.fn()
@@ -80,8 +77,8 @@ it('checking events works correctly', () => {
     instance.el.querySelector('.rp-container__actions .rp-container__button').click()
     instance.el.querySelector('.rp-container .rp-container__header').click()
 
-    const evt = document.createEvent("HTMLEvents");
-    evt.initEvent("change", false, true);
+    const evt = document.createEvent('HTMLEvents')
+    evt.initEvent('change', false, true)
 
     instance.el.querySelector('.rp-container__author .rp-container__field').value = 'test'
     instance.el.querySelector('.rp-container__author .rp-container__field').dispatchEvent(evt)
@@ -98,4 +95,3 @@ it('checking events works correctly', () => {
     expect(messageSpy).toBeCalled()
     expect(instance.state.message).toBe('test')
 })
-

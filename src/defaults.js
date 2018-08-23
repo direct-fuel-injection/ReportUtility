@@ -6,7 +6,7 @@ const defaults = {
     /** set window compact mode  */
     minimized: true,
     /** set html for render function */
-    template: html
+    template: html,
 }
 
 export default defaults

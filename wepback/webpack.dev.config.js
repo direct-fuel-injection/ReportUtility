@@ -1,6 +1,7 @@
-var merge = require('webpack-merge');
-var baseConfig = require('./webpack.base.config.js')
-var path = require('path');
+const merge = require('webpack-merge');
+const path = require('path');
+
+const baseConfig = require('./webpack.base.config.js')
 
 module.exports = merge(baseConfig, {
     mode: 'development',
@@ -12,11 +13,11 @@ module.exports = merge(baseConfig, {
         publicPath: '/dist',
         filename: 'report.utility.js',
         library: 'ReportUtility',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
     },
 
     devServer: {
         contentBase: [path.join(__dirname, '../examples'), path.join(__dirname, '../')],
-        port: 3000
-    }
-});
+        port: 3000,
+    },
+})

@@ -1,1 +1,17 @@
-"parser": "babel-eslint"
+{
+    "extends": "airbnb-base",
+    "parser": "babel-eslint",
+    "rules": {
+        "func-names": ["error", "never"],
+        "indent": ["error", 4],
+        "semi": 0
+    },
+    "globals": {
+        "document": true,
+        "fetch": true,
+        "it": true,
+        "beforeEach": true,
+        "expect": true,
+        "jest": true
+    }
+}

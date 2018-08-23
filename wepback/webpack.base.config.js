@@ -1,37 +1,36 @@
-var path = require('path');
-var babelOptions = require('./babel.config.json');
+const babelOptions = require('./babel.config.json')
 
 module.exports = {
     module: {
         rules: [{
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: babelOptions
-                }
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+                loader: 'babel-loader',
+                options: babelOptions,
             },
-            {
-                test: /\.css$/,
-                use: [
-                    { loader: 'style-loader' },
-                    { 
-                        loader: 'css-loader',
-                        options: {
-                            minimize: true
-                        }
-                    }
-                ]
-            },
-            {
-                test: /\.html$/,
-                use: [{
-                    loader: 'html-loader',
+        },
+        {
+            test: /\.css$/,
+            use: [
+                { loader: 'style-loader' },
+                {
+                    loader: 'css-loader',
                     options: {
-                        minimize: true
-                    }
-                }]
-            }
-        ]
-    }
+                        minimize: true,
+                    },
+                },
+            ],
+        },
+        {
+            test: /\.html$/,
+            use: [{
+                loader: 'html-loader',
+                options: {
+                    minimize: true,
+                },
+            }],
+        },
+        ],
+    },
 }

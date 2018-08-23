@@ -13,7 +13,7 @@ $ npm i report-utility
 Install as standalone library.
 
 ```sh
-$ cp ./dist/standalone/report.utility.min.js $dest
+$ cp ./dist/report.utility.min.js $dest
 ```
 
 ### Usage
