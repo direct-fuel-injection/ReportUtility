@@ -13,11 +13,13 @@ module.exports = {
         {
             test: /\.css$/,
             use: [
-                { loader: 'style-loader' },
+                'style-loader',
                 {
-                    loader: 'css-loader',
+                    loader: 'postcss-loader',
                     options: {
-                        minimize: true,
+                        config: {
+                            path: require.resolve('./postcss.config.js'),
+                        },
                     },
                 },
             ],
