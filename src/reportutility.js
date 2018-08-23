@@ -49,22 +49,22 @@ class ReportUtility {
      */
     events = [
         {
-            el: '.rp-container__actions .rp-container__button',
+            el: '[data-name="send"]',
             evt: 'click',
             cb: 'onSend',
         },
         {
-            el: '.rp-container__author .rp-container__field',
+            el: '[data-name="author"]',
             evt: 'change',
             cb: 'onChangeAuthor',
         },
         {
-            el: '.rp-container__message .rp-container__field',
+            el: '[data-name="message"]',
             evt: 'change',
             cb: 'onChangeMessage',
         },
         {
-            el: '.rp-container__header',
+            el: '[data-name="header"]',
             evt: 'click',
             cb: 'onToggle',
         },
@@ -72,15 +72,23 @@ class ReportUtility {
 
     bindEvents() {
         this.events.forEach(({ el, evt, cb }) => {
-            const domEl = this.el.querySelector(el)
-            if (domEl) domEl.addEventListener(evt, this[cb], false)
+            const domElements = this.el.querySelectorAll(el)
+            if (domElements.length) {
+                Array.prototype.map.call(domElements, (domElement) => {
+                    domElement.addEventListener(evt, this[cb], false)
+                })
+            }
         })
     }
 
     unbindEvents() {
         this.events.forEach(({ el, evt, cb }) => {
-            const domEl = this.el.querySelector(el)
-            if (domEl) domEl.removeEventListener(evt, this[cb], false)
+            const domElements = this.el.querySelectorAll(el)
+            if (domElements.length) {
+                Array.prototype.map.call(domElements, (domElement) => {
+                    domElement.removeEventListener(evt, this[cb], false)
+                })
+            }
         })
     }
 
@@ -115,7 +123,9 @@ class ReportUtility {
     /**
      * Handles send button click
      */
-    onSend() {
+    onSend(e) {
+        e.preventDefault()
+
         const { name, message, url } = this.state
 
         if (!url) return

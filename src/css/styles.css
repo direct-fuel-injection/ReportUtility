@@ -2,13 +2,18 @@
     box-sizing: border-box;
 }
 
+.rp-container fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
 .rp-container {
     bottom: 0;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
     cursor: pointer;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
-    min-width: 280px;
+    width: 280px;
     padding: 0;
     position: absolute;
     right: 20px;
@@ -66,12 +71,17 @@
     content: '✖';
 }
 
+.rp-container__cover .rp-container__field {
+    padding: 20px 0;
+}
+
 .rp-container__field {
     border: none;
     border-bottom: 1px solid transparent;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 0px;
+    padding-top: 10px;
     width: 100%;
 }
 
@@ -91,10 +101,23 @@
     width: 100%;
 }
 
-.rp-container__message .rp-container__field {
+.rp-container__message {
     background-color: rgba(245, 249, 251, 1);
-    min-height: 100px;
+}
+
+.rp-container__message .rp-container__field {
+    background-color: transparent;
+    min-height: 80px;
     resize: none;
+}
+
+.rp-container label ,
+.rp-container label {
+    color: rgb(136, 145, 137);
+    display: block;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    padding: 20px;
 }
 
 .rp-container__actions {

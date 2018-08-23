@@ -1,22 +1,32 @@
 <div class="rp-container">
-    <div class="rp-container__header">
+    <div class="rp-container__header" data-name="header">
         Напишите нам об ошибке!
         <div class="rp-container__dismiss"></div>
     </div>
     <div class="rp-container__wrapper">
-        <div class="rp-container__author">
-            <input class="rp-container__field" type="text" placeholder="Ваше Имя" />
-        </div>
-        <div class="rp-container__message">
-            <textarea class="rp-container__field" type="text" placeholder="Оставьте сообщение"></textarea>
-        </div>
-        <div class="rp-container__actions">
-            <button class="rp-container__button">Отправить</button>
-        </div>
-        <div class="rp-container__cover rp-container__cover_loading">Отправляем, ждите...</div>
-        <div class="rp-container__cover rp-container__cover_error">
-            <div class="rp-container__field">Упс, что-то пошло не так...</div>
-            <button class="rp-container__button">Отправить еще раз</button>
-        </div>
+        <form>
+            <fieldset>
+                <div class="rp-container__author">
+                    <label>
+                        Ваше Имя
+                        <input data-name="author" class="rp-container__field" type="text" />
+                    </label>
+                </div>
+                <div class="rp-container__message">
+                    <label>
+                        Оставьте сообщение
+                        <textarea data-name="message" class="rp-container__field" type="text"></textarea>
+                    </label>
+                </div>
+            </fieldset>
+            <div class="rp-container__actions">
+                <button class="rp-container__button" data-name="send">Отправить</button>
+            </div>
+            <div class="rp-container__cover rp-container__cover_loading">Отправляем, ждите...</div>
+            <div class="rp-container__cover rp-container__cover_error">
+                <div class="rp-container__field">Упс, что-то пошло не так...</div>
+                <input type="submit" class="rp-container__button" data-name="send" value="Отправить еще раз">
+            </div>
+        </form>
     </div>
 </div>
