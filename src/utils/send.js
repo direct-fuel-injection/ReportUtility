@@ -1,6 +1,9 @@
 import 'whatwg-fetch'
-import 'promise-polyfill/src/polyfill'
+import Promise from 'promise-polyfill'
 
+if (!window.Promise) {
+    window.Promise = Promise
+}
 /**
  * sends POST to url with { message, name } in JSON.
  * @param {url} url
