@@ -1,4 +1,5 @@
 import 'whatwg-fetch'
+import 'promise-polyfill/src/polyfill'
 
 /**
  * sends POST to url with { message, name } in JSON.
