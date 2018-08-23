@@ -13,7 +13,7 @@ module.exports = merge(baseConfig, {
         library: 'ReportUtility',
         libraryTarget: 'umd'
     },
-
+    
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {

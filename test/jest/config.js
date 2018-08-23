@@ -1,6 +1,7 @@
 module.exports = {
     rootDir : '../',
-    // setupFiles: ['./jest/setup.js'],
+    automock: false,
+    setupFiles: ["./jest/setup.js"],
     transform: {
         '^.+\\.js$': './jest/transformer.js',
         "^.+\\.html?$": "html-loader-jest",

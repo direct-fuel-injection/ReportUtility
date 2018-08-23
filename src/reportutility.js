@@ -9,6 +9,8 @@ class ReportUtility {
         this.state = defaults
         
         this.onSend = this.onSend.bind(this)
+        this.onSendError = this.onSendError.bind(this)
+        this.onSendSuccess = this.onSendSuccess.bind(this)
         this.onChangeAuthor = this.onChangeAuthor.bind(this)
         this.onChangeMessage = this.onChangeMessage.bind(this)
         this.onToggle = this.onToggle.bind(this)
@@ -87,8 +89,9 @@ class ReportUtility {
      * @param  {object} newState
      */
     setState(newState) {
+        const prevState = this.state
         this.state = Object.assign({}, this.state, newState)
-        this.update()
+        this.update(prevState)
     }
 
     onToggle() {
@@ -119,21 +122,32 @@ class ReportUtility {
         this.setState({ isSending: true })
     
         // sending message to the server
-        send(url, { name, message }).then((response) => {
+        send(url, { name, message }).then(() => {
             if (response.status === 200) {
-                this.setState({ isSending: false })
+                this.onSendSuccess()
             } else {
                 throw new Error(response.statusText);
             }
-        }).catch(() => {
-            this.setState({
-                isError: true,
-                isSending: false
-            })
+        }).catch(this.onSendError)
+    }
+    onSendSuccess() {
+        this.setState({
+            name: '',
+            message: '',
+            isSending: false
         })
     }
-
-    update() {
+    onSendError() {
+        this.setState({
+            isError: true,
+            isSending: false
+        })
+    }
+    /**
+     * Updates form according to state change
+     * @param  {object} previous state object
+     */
+    update(prevState) {
         if (this.state.minimized) {
             this.el.querySelector('.rp-container').classList.add('rp-container_minimized')
         } else {
@@ -141,14 +155,21 @@ class ReportUtility {
         }
         this.el.querySelector('.rp-container__cover_loading').style.display = this.state.isSending ? 'block' : 'none'
         this.el.querySelector('.rp-container__cover_error').style.display = this.state.isError ? 'block' : 'none'
+    
+        if (prevState.name !== this.state.name) {
+            this.el.querySelector('.rp-container__author .rp-container__field').value = this.state.name
+        }
+        if (prevState.message !== this.state.message) {
+            this.el.querySelector('.rp-container__message .rp-container__field').value = this.state.message
+        }
     }
 
     render() {
         this.el.innerHTML = ''
         this.el.insertAdjacentHTML('afterbegin', this.state.template)
 
-        if (this.state.minimized)
-            this.el.querySelector('.rp-container').classList.add('minimized')
+        const el = this.el.querySelector('.rp-container')
+        if (el && this.state.minimized)  el.classList.add('minimized')
     }
 }
 

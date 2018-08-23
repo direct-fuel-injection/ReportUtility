@@ -18,7 +18,17 @@ $ cp ./dist/standalone/report.utility.min.js $dest
 
 ### Usage
 
-As standalone library, see examples([`render` function](https://direct-fuel-injection.github.io/ReportUtility/examples/render/)):
+Defaults 
+```js
+    {
+        el, // selector for inject form
+        url, // endpoint to send logs
+        template, // html code
+        minimized // compact mode
+    }
+```
+
+Example ([`init` function](https://direct-fuel-injection.github.io/ReportUtility/examples/render/)):
 ```js
 ReportUtility.config({
     el: '#container',

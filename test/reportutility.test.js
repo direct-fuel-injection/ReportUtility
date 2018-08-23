@@ -6,8 +6,11 @@ import defaults from '../src/defaults'
 
 let instance
 
-beforeAll(() => {
+beforeEach(() => {
     rp.config({ el: 'body' })
+    if (instance) {
+        instance.destroy()
+    }
     instance = rp.init()
 })
 
@@ -40,11 +43,26 @@ it('setState should correctly merge objects with defaults', () => {
     expect(instance.state).toEqual(prevState)
 })
 
-it('setState should call update', () => {
+it('check setState should call properly', () => {
+    let update = instance.update
     instance.update = jest.fn()
-    instance.setState({ visible: false })
+    instance.setState({ visible: true })
 
     expect(instance.update).toBeCalled()
+    instance.update = update
+})
+
+it('check setState should correctly update DOM', () => {
+    instance.setState({ name: 'test', message: 'test' })
+    expect(instance.el.querySelector('.rp-container__author .rp-container__field').value).toBe('test')
+    expect(instance.el.querySelector('.rp-container__message .rp-container__field').value).toBe('test')
+})
+
+it('check onSend method calls', () => {
+    instance.el.querySelector('.rp-container__actions .rp-container__button').click()
+
+    expect(fetch.mock.calls[0][0]).toEqual(instance.state.url)
+    expect(fetch.mock.calls.length).toBe(1)
 })
 
 it('checking events works correctly', () => {
@@ -74,7 +92,7 @@ it('checking events works correctly', () => {
     expect(instance.onSend).toBeCalled()
     expect(toggleSpy).toBeCalled()
     expect(instance.state.minimized).toBe(!minimized)
-    expect(!!instance.el.querySelector('.rp-container_minimized')).toBeTruthy()
+    expect(!!instance.el.querySelector('.rp-container_minimized')).toBe(!minimized)
     expect(authorSpy).toBeCalled()
     expect(instance.state.name).toBe('test')
     expect(messageSpy).toBeCalled()
