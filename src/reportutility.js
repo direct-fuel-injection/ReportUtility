@@ -20,7 +20,7 @@ class ReportUtility {
      */
     init() {
         this.el = document.querySelector(this.state.el)
-        if (!this.el) throw TypeError("`el` must be specified through `config` method")
+        if (!this.el) throw TypeError('`el` must be specified through `config` method')
 
         this.render()
         this.bindEvents()
@@ -44,17 +44,42 @@ class ReportUtility {
         this.state = Object.assign({}, defaults, options)
     }
 
+    /**
+     * Events array, { el, evt, cb } (selector, eventName, callbackName)
+     */
+    events = [
+        {
+            el: '.rp-container__actions .rp-container__button',
+            evt: 'click',
+            cb: 'onSend'
+        },
+        {
+            el: '.rp-container__author .rp-container__field',
+            evt: 'change',
+            cb: 'onChangeAuthor'
+        },
+        {
+            el: '.rp-container__message .rp-container__field',
+            evt: 'change',
+            cb: 'onChangeMessage'
+        },
+        {
+            el: '.rp-container__header',
+            evt: 'click',
+            cb: 'onToggle'
+        }
+    ]
     bindEvents() {
-        this.el.querySelector('.rp-container__actions .rp-container__button').addEventListener('click', this.onSend, false)
-        this.el.querySelector('.rp-container__author .rp-container__field').addEventListener('change', this.onChangeAuthor, false)
-        this.el.querySelector('.rp-container__message .rp-container__field').addEventListener('change', this.onChangeMessage, false)
-        this.el.querySelector('.rp-container__header').addEventListener('click', this.onToggle, false)
+        this.events.forEach(({ el, evt, cb }) => {
+            let domEl = this.el.querySelector(el)
+            if (domEl) domEl.addEventListener(evt, this[cb], false)
+        })
     }
     unbindEvents() {
-        this.el.querySelector('.rp-container__actions .rp-container__button').removeEventListener('click', this.onSend, false)
-        this.el.querySelector('.rp-container__author .rp-container__field').removeEventListener('change', this.onChangeAuthor, false)
-        this.el.querySelector('.rp-container__message .rp-container__field').removeEventListener('change', this.onChangeMessage, false)
-        this.el.querySelector('.rp-container__header').removeEventListener('click', this.onToggle, false)
+        this.events.forEach(({ el, evt, cb }) => {
+            let domEl = this.el.querySelector(el)
+            if (domEl) domEl.removeEventListener(evt, this[cb], false)
+        })
     }
 
     /**
@@ -84,9 +109,8 @@ class ReportUtility {
     
     /**
      * Handles send button click, 
-     * @param  {Event} e from DOM
      */
-    onSend(e) {
+    onSend() {
         const { name, message, url } = this.state
     
         if (!url) return
