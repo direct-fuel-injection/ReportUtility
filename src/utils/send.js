@@ -1,3 +1,5 @@
+import 'whatwg-fetch'
+
 /**
  * sends POST to url with { message, name } in JSON.
  * @param {url} url

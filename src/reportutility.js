@@ -172,10 +172,10 @@ class ReportUtility {
         this.el.querySelector('.rp-container__cover_error').style.display = this.state.isError ? 'block' : 'none'
 
         if (prevState.name !== this.state.name) {
-            this.el.querySelector('.rp-container__author .rp-container__field').value = this.state.name
+            this.el.querySelector('[data-name="author"]').value = this.state.name
         }
         if (prevState.message !== this.state.message) {
-            this.el.querySelector('.rp-container__message .rp-container__field').value = this.state.message
+            this.el.querySelector('[data-name="message"]').value = this.state.message
         }
     }
 

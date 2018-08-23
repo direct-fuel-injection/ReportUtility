@@ -5,7 +5,7 @@ const baseConfig = require('./webpack.base.config.js')
 
 module.exports = merge(baseConfig, {
     mode: 'production',
-    entry: './src/index',
+    entry: ['whatwg-fetch', './src/index'],
     devtool: 'source-map',
     output: {
         path: path.resolve(__dirname, '../dist'),

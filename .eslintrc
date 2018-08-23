@@ -1,5 +1,9 @@
 {
     "extends": "airbnb-base",
+    "plugins": ["jest"],
+    "env": {
+        "jest/globals": true
+    },
     "parser": "babel-eslint",
     "rules": {
         "func-names": ["error", "never"],
@@ -8,10 +12,6 @@
     },
     "globals": {
         "document": true,
-        "fetch": true,
-        "it": true,
-        "beforeEach": true,
-        "expect": true,
-        "jest": true
+        "fetch": true
     }
 }

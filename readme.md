@@ -36,6 +36,13 @@ ReportUtility.config({
 });
 ReportUtility.init();
 ```
+
+#### Browser Support
+
+ - IE 11+
+ - All Modern Browsers
+    
+
 ### Development
 
 Want to contribute? Great!
